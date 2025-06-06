@@ -27,13 +27,16 @@ inline CNF generate_random_formula(int variables, int clauses) {
     return formula;
 }
 
+// Return memory used by the current process in kilobytes.
 inline long get_memory_usage_kb() {
-
-}
-
-inline void print_result(const std::string& name, int instances,
-                        const std::chrono::steady_clock::time_point& start,
-                        const std::chrono::steady_clock::time_point& end) {
+    PROCESS_MEMORY_COUNTERS pmc{};
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        return static_cast<long>(pmc.WorkingSetSize / 1024);
+#elif defined(__unix__) || defined(__APPLE__)
+        return static_cast<long>(usage.ru_maxrss / 1024);
+        return static_cast<long>(usage.ru_maxrss);
+#else
+    return 0; // Unknown platform
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     long mem_kb = get_memory_usage_kb();
     std::cout << name << " solved " << instances << " instance(s) in "
