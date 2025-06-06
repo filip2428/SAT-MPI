@@ -45,16 +45,17 @@ bool cdcl_recursive(CNF formula) {
 }
 
 int main(int argc, char** argv) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <instances>\n";
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <instances> <seed>\n";
         return 1;
     }
     int instances = std::stoi(argv[1]);
+    unsigned int seed = std::stoul(argv[2]);
     const int vars = 6;
     const int clauses = 10;
     auto start = std::chrono::steady_clock::now();
-    for (int i = 0; i < instances; ++i) {
-        CNF f = generate_random_formula(vars, clauses);
+    auto formulas = generate_random_formulas(vars, clauses, instances, seed);
+    for (const auto& f : formulas) {
         cdcl_recursive(f);
     }
     auto end = std::chrono::steady_clock::now();
