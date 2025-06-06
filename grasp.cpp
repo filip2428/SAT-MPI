@@ -1,5 +1,6 @@
 #include "sat_utils.h"
 
+
 CNF assign_literal_gr(const CNF& f, int lit, bool& conflict) {
     CNF out;
     for (const auto& c : f) {

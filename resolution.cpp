@@ -1,6 +1,7 @@
 #include "sat_utils.h"
 #include <set>
 
+
 bool resolution_unsat(CNF formula) {
     for (auto &c : formula) std::sort(c.begin(), c.end());
     std::set<Clause> clauses(formula.begin(), formula.end());
