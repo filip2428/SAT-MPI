@@ -6,6 +6,7 @@
 #include <chrono>
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 
 using Clause = std::vector<int>;
