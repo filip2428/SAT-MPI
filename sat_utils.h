@@ -4,8 +4,7 @@
 #include <vector>
 #include <random>
 #include <chrono>
-#include <sys/resource.h>
-#include <iostream>
+
 
 using Clause = std::vector<int>;
 using CNF = std::vector<Clause>;
@@ -29,11 +28,7 @@ inline CNF generate_random_formula(int variables, int clauses) {
 }
 
 inline long get_memory_usage_kb() {
-    struct rusage usage{};
-    if (getrusage(RUSAGE_SELF, &usage) == 0) {
-        return usage.ru_maxrss; // in kilobytes
-    }
-    return 0;
+
 }
 
 inline void print_result(const std::string& name, int instances,
