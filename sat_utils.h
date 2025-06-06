@@ -4,8 +4,13 @@
 #include <vector>
 #include <random>
 #include <chrono>
-#include <sys/resource.h>
 #include <iostream>
+#ifdef _WIN32
+#  include <windows.h>
+#  include <psapi.h>
+#else
+#  include <sys/resource.h>
+#endif
 
 using Clause = std::vector<int>;
 using CNF = std::vector<Clause>;
@@ -29,11 +34,23 @@ inline CNF generate_random_formula(int variables, int clauses) {
 }
 
 inline long get_memory_usage_kb() {
-    struct rusage usage{};
-    if (getrusage(RUSAGE_SELF, &usage) == 0) {
-        return usage.ru_maxrss; // in kilobytes
+#ifdef _WIN32
+    PROCESS_MEMORY_COUNTERS info{};
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &info, sizeof(info))) {
+        return info.PeakWorkingSetSize / 1024;
     }
     return 0;
+#else
+    struct rusage usage{};
+    if (getrusage(RUSAGE_SELF, &usage) == 0) {
+#  ifdef __APPLE__
+        return usage.ru_maxrss / 1024; // bytes -> KB on macOS
+#  else
+        return usage.ru_maxrss; // already KB on Linux
+#  endif
+    }
+    return 0;
+#endif
 }
 
 inline void print_result(const std::string& name, int instances,
