@@ -4,14 +4,20 @@
 #include <vector>
 #include <random>
 #include <chrono>
+#include <iostream>
+#include <algorithm>
 
 
 using Clause = std::vector<int>;
 using CNF = std::vector<Clause>;
 
+// Global random number generator used across solvers
+inline std::mt19937 rng{std::random_device{}()};
+
+inline void seed_rng(unsigned int seed) { rng.seed(seed); }
+
 // Generate a random 3-SAT formula with given number of variables and clauses
 inline CNF generate_random_formula(int variables, int clauses) {
-    static std::mt19937 rng(std::random_device{}());
     std::uniform_int_distribution<int> var_dist(1, variables);
     std::uniform_int_distribution<int> sign_dist(0, 1);
     CNF formula;
@@ -27,8 +33,19 @@ inline CNF generate_random_formula(int variables, int clauses) {
     return formula;
 }
 
-inline long get_memory_usage_kb() {
+// Generate multiple random formulas using the provided seed
+inline std::vector<CNF> generate_random_formulas(int variables, int clauses,
+                                                 int instances,
+                                                 unsigned int seed) {
+    seed_rng(seed);
+    std::vector<CNF> formulas;
+    for (int i = 0; i < instances; ++i)
+        formulas.push_back(generate_random_formula(variables, clauses));
+    return formulas;
+}
 
+inline long get_memory_usage_kb() {
+    return 0;
 }
 
 inline void print_result(const std::string& name, int instances,
