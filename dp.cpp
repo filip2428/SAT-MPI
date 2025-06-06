@@ -1,6 +1,4 @@
 #include "sat_utils.h"
-#include <algorithm>
-#include <iostream>
 
 bool dp_unsat(CNF formula) {
     while (true) {

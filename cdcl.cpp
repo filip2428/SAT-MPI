@@ -1,6 +1,5 @@
 #include "sat_utils.h"
-#include <algorithm>
-#include <iostream>
+
 
 CNF assign_literal_cl(const CNF& f, int lit, bool& conflict) {
     CNF out;
