@@ -5,8 +5,12 @@
 #include <random>
 #include <chrono>
 #include <iostream>
-#include <algorithm>
-
+#ifdef _WIN32
+#  include <windows.h>
+#  include <psapi.h>
+#else
+#  include <sys/resource.h>
+#endif
 
 using Clause = std::vector<int>;
 using CNF = std::vector<Clause>;
@@ -43,9 +47,26 @@ inline std::vector<CNF> generate_random_formulas(int variables, int clauses,
         formulas.push_back(generate_random_formula(variables, clauses));
     return formulas;
 }
-
 inline long get_memory_usage_kb() {
+#ifdef _WIN32
+    PROCESS_MEMORY_COUNTERS pmc{};
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
+        return static_cast<long>(pmc.WorkingSetSize / 1024);
+    }
     return 0;
+#elif defined(__unix__) || defined(__APPLE__)
+    struct rusage usage{};
+    if (getrusage(RUSAGE_SELF, &usage) == 0) {
+#  ifdef __APPLE__
+        return static_cast<long>(usage.ru_maxrss / 1024);
+#  else
+        return static_cast<long>(usage.ru_maxrss);
+#  endif
+    }
+    return 0;
+#else
+    return 0; // Unknown platform
+#endif
 }
 
 inline void print_result(const std::string& name, int instances,

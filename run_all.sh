@@ -4,3 +4,4 @@ seed=${2:-0}
 for solver in resolution dp dpll cdcl grasp; do
     ./$solver "$instances" "$seed"
 done
+read -p "Press Enter to exit"

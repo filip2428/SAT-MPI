@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MPI",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "cdcl::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cdcl-Debug-5f4672a141c4a8457ab6.json",
+					"name" : "cdcl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dp-Debug-7051df8d9beb04184c04.json",
+					"name" : "dp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dpll::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dpll-Debug-865bc3805f9250409d0b.json",
+					"name" : "dpll",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "grasp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-grasp-Debug-b3494a53c0e7c09c8d52.json",
+					"name" : "grasp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "resolution::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-resolution-Debug-8ff92c8261855f28b0a2.json",
+					"name" : "resolution",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/hacfi/CLionProjects/MPI/cmake-build-debug",
+		"source" : "C:/Users/hacfi/CLionProjects/MPI"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
